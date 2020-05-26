@@ -4,7 +4,7 @@
 resource "oci_core_security_list" "bastion" {
   compartment_id = var.compartment_id
   display_name   = "${var.label_prefix}-bastion"
-  freeform_tags  = var.tags.network
+  freeform_tags  = var.tags
 
   egress_security_rules {
     protocol    = local.all_protocols

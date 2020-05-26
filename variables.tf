@@ -154,14 +154,9 @@ variable "notification_topic" {
 variable "tags" {
   description = "Freeform tags for bastion"
   default = {
-    compute = {
-      "environment" = "dev"
-      "role"        = "bastion"
-    }
-    network = {
-      "environment" = "dev"
-      "role"        = "bastion"
-    }
+    department  = "finance"
+    environment = "dev"
+    role        = "bastion"
   }
   type = map(any)
 }

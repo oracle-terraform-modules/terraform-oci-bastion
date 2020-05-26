@@ -56,12 +56,7 @@ notification_protocol = "EMAIL"
 notification_topic = "bastion"
 
 tags = {
-  compute = {
-    "environment" = "dev"
-    "role"        = "bastion"
-  }
-  network = {
-    "environment" = "dev"
-    "role"        = "bastion"
-  }
+    department  = "finance"
+    environment = "dev"
+    role        = "bastion"
 }
