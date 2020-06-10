@@ -7,6 +7,16 @@ All notable changes to this project are documented in this file.
 
 The format is based on {uri-changelog}[Keep a Changelog].
 
+== v1.0.2 (June 10,2020)
+
+=== Changes
+* Removed image operating system version from datasource (#1)
+
+== v1.0.1 (May 27,2020)
+
+=== Changes
+* updated tags
+
 == v1.0.0 (May 21,2020)
 
 === Changes
