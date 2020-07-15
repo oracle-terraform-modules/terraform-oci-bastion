@@ -42,6 +42,7 @@ variable "compartment_id" {
 variable "label_prefix" {
   description = "a string that will be prepended to all resources"
   type        = string
+  default     = "none"
 }
 
 # network parameters

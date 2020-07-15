@@ -4,7 +4,7 @@
 resource "oci_core_subnet" "bastion" {
   cidr_block                 = cidrsubnet(local.vcn_cidr, var.newbits, var.netnum)
   compartment_id             = var.compartment_id
-  display_name               = "${var.label_prefix}-bastion"
+  display_name               = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
   dns_label                  = "bastion"
   freeform_tags              = var.tags
   prohibit_public_ip_on_vnic = false
