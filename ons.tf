@@ -12,7 +12,7 @@ provider "oci" {
 
 resource "oci_ons_notification_topic" "bastion_notification" {
   compartment_id = var.compartment_id
-  name           = "${var.label_prefix}-${var.notification_topic}"
+  name           = var.label_prefix == "none" ? var.notification_topic : "${var.label_prefix}-${var.notification_topic}"
 
   count = (var.bastion_enabled == true && var.notification_enabled == true) ? 1 : 0
 }
@@ -33,7 +33,7 @@ resource "oci_identity_dynamic_group" "bastion_notification" {
   depends_on     = [oci_core_instance.bastion]
   description    = "dynamic group to allow bastion to send notifications to ONS"
   matching_rule  = "ALL {instance.id = '${join(",", data.oci_core_instance.bastion.*.id)}'}"
-  name           = "${var.label_prefix}-bastion-notification"
+  name           = var.label_prefix == "none" ? "bastion-notification" : "${var.label_prefix}-bastion-notification"
 
   count = (var.bastion_enabled == true && var.notification_enabled == true) ? 1 : 0
 }
@@ -44,7 +44,7 @@ resource "oci_identity_policy" "bastion_notification" {
   compartment_id = var.compartment_id
   depends_on     = [oci_core_instance.bastion]
   description    = "policy to allow bastion host to publish messages to ONS"
-  name           = "${var.label_prefix}-bastion-notification"
+  name           = var.label_prefix == "none" ? "bastion-notification" : "${var.label_prefix}-bastion-notification"
   statements     = ["Allow dynamic-group ${oci_identity_dynamic_group.bastion_notification[0].name} to use ons-topic in compartment id ${var.compartment_id} where request.permission='ONS_TOPIC_PUBLISH'"]
 
   count = (var.bastion_enabled == true && var.notification_enabled == true) ? 1 : 0

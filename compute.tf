@@ -8,12 +8,12 @@ resource "oci_core_instance" "bastion" {
 
   create_vnic_details {
     assign_public_ip = true
-    display_name     = "${var.label_prefix}-bastion-vnic"
+    display_name     = var.label_prefix == "none" ? "bastion-vnic" : "${var.label_prefix}-bastion-vnic"
     hostname_label   = "bastion"
     subnet_id        = oci_core_subnet.bastion[0].id
   }
 
-  display_name = "${var.label_prefix}-bastion"
+  display_name = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
 
   # prevent the bastion from destroying and recreating itself if the image ocid changes 
   lifecycle {
