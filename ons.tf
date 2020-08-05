@@ -3,11 +3,7 @@
 
 provider "oci" {
   alias            = "home"
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
   region           = lookup(data.oci_identity_regions.home_region.regions[0], "name")
-  tenancy_ocid     = var.tenancy_id
-  user_ocid        = var.user_id
 }
 
 resource "oci_ons_notification_topic" "bastion_notification" {
