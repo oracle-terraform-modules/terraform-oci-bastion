@@ -45,6 +45,12 @@ variable "label_prefix" {
   default     = "none"
 }
 
+variable "root_compartment_id" {
+  # specify a different name so it can be used in resource manager
+  description = "tenancy id where to create the sources"
+  type        = string
+}
+
 # network parameters
 
 variable "availability_domain" {
