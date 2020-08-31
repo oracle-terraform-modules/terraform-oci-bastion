@@ -7,8 +7,11 @@ All notable changes to this project are documented in this file.
 
 The format is based on {uri-changelog}[Keep a Changelog].
 
+= v1.0.7 (August 31,2020)
+* Reversed 1.04 and and 1.0.5 (#9)
+
 = v1.0.6 (August 31,2020)
-* Reversed 1.0.4 and 1.0.5 (#9)
+* Use root_compartment_id instead of tenancy_id for dynamic group
 
 == v1.0.5 (August 5,2020)
 * tenancy id is needed for list of ADs (#7)
