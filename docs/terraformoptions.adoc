@@ -196,7 +196,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |bastion
 |===
 
-== Taggin Parameters
+== Tagging Parameters
 
 [stripes=odd,cols="1d,4d,3a,3a", options=header,width="100%"] 
 |===

@@ -3,7 +3,11 @@
 
 provider "oci" {
   alias            = "home"
+  fingerprint      = var.api_fingerprint
+  private_key_path = var.api_private_key_path
   region           = lookup(data.oci_identity_regions.home_region.regions[0], "name")
+  tenancy_ocid     = var.tenancy_id
+  user_ocid        = var.user_id
 }
 
 resource "oci_ons_notification_topic" "bastion_notification" {
@@ -25,7 +29,7 @@ resource "oci_ons_subscription" "bastion_notification" {
 resource "oci_identity_dynamic_group" "bastion_notification" {
   provider = oci.home
 
-  compartment_id = var.root_compartment_id
+  compartment_id = var.tenancy_id
   depends_on     = [oci_core_instance.bastion]
   description    = "dynamic group to allow bastion to send notifications to ONS"
   matching_rule  = "ALL {instance.id = '${join(",", data.oci_core_instance.bastion.*.id)}'}"
