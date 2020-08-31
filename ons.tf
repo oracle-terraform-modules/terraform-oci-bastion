@@ -29,7 +29,7 @@ resource "oci_ons_subscription" "bastion_notification" {
 resource "oci_identity_dynamic_group" "bastion_notification" {
   provider = oci.home
 
-  compartment_id = var.root_compartment_id
+  compartment_id = var.tenancy_id
   depends_on     = [oci_core_instance.bastion]
   description    = "dynamic group to allow bastion to send notifications to ONS"
   matching_rule  = "ALL {instance.id = '${join(",", data.oci_core_instance.bastion.*.id)}'}"
