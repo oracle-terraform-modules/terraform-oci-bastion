@@ -139,9 +139,19 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Autonomous
 
 |`bastion_shape`
-|The shape of bastion instance.
-|e.g. VM.Standard.E2.2
-|VM.Standard.E2.2
+|The shape of bastion instance. This is now specified as a map and supports E3.Flex. If a non-Flex shape is specified, then the other parameters are ignored.
+|e.g. `bastion_shape = {
+  shape="VM.Standard.E3.Flex",
+  ocpus=1,
+  memory=4,
+  boot_volume_size=50
+}`
+|`bastion_shape = {
+  shape="VM.Standard.E3.Flex",
+  ocpus=1,
+  memory=4,
+  boot_volume_size=50
+}`
 
 |`bastion_upgrade`
 |Whether to upgrade the bastion host packages after provisioning. It's useful to set this to false during development/testing so the bastion is provisioned faster.

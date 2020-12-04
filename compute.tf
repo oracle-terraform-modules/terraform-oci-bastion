@@ -4,7 +4,7 @@
 resource "oci_core_instance" "bastion" {
   availability_domain = element(local.ad_names, (var.availability_domain - 1))
   compartment_id      = var.compartment_id
-  freeform_tags       = var.tags   
+  freeform_tags       = var.tags
 
   create_vnic_details {
     assign_public_ip = true
@@ -14,6 +14,10 @@ resource "oci_core_instance" "bastion" {
   }
 
   display_name = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
+
+  launch_options {
+    network_type = "PARAVIRTUALIZED"
+  }
 
   # prevent the bastion from destroying and recreating itself if the image ocid changes 
   lifecycle {
@@ -25,11 +29,20 @@ resource "oci_core_instance" "bastion" {
     user_data           = data.template_cloudinit_config.bastion[0].rendered
   }
 
-  shape = var.bastion_shape
+  shape = lookup(var.bastion_shape, "shape", "VM.Standard.E2.2")
+
+  dynamic "shape_config" {
+    for_each = length(regexall("Flex", lookup(var.bastion_shape, "shape", "VM.Standard.E3.Flex"))) > 0 ? [1] : []
+    content {
+      ocpus         = max(1, lookup(var.bastion_shape, "ocpus", 1))
+      memory_in_gbs = (lookup(var.bastion_shape, "memory", 4) / lookup(var.bastion_shape, "ocpus", 1)) > 64 ? (lookup(var.bastion_shape, "ocpus", 1) * 4) : lookup(var.bastion_shape, "memory", 4)
+    }
+  }
 
   source_details {
-    source_type = "image"
-    source_id   = local.bastion_image_id
+    boot_volume_size_in_gbs = lookup(var.bastion_shape, "boot_volume_size", 50)
+    source_type             = "image"
+    source_id               = local.bastion_image_id
   }
 
   timeouts {

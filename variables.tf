@@ -97,8 +97,10 @@ variable "bastion_image_id" {
 
 variable "bastion_shape" {
   description = "The shape of bastion instance."
-  default     = "VM.Standard.E2.2"
-  type        = string
+  default     = {
+   shape = "VM.Standard.E3.Flex", ocpus = 1, memory = 4, boot_volume_size = 50
+  }
+  type        = map(any)
 }
 
 variable "bastion_upgrade" {
