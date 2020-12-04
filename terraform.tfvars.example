@@ -37,7 +37,13 @@ bastion_enabled = true
 
 bastion_image_id = "Autonomous"
 
-bastion_shape = "VM.Standard.E2.2"
+bastion_shape = {
+  # shape = "VM.Standard.E2.2"
+  shape="VM.Standard.E3.Flex",
+  ocpus=1,
+  memory=4,
+  boot_volume_size=50
+}
 
 bastion_upgrade = false
 
