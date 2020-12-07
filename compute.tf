@@ -16,7 +16,8 @@ resource "oci_core_instance" "bastion" {
   display_name = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
 
   launch_options {
-    network_type = "PARAVIRTUALIZED"
+    boot_volume_type = "PARAVIRTUALIZED"
+    network_type     = "PARAVIRTUALIZED"
   }
 
   # prevent the bastion from destroying and recreating itself if the image ocid changes 
