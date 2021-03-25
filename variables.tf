@@ -66,13 +66,13 @@ variable "ig_route_id" {
 
 variable "netnum" {
   description = "0-based index of the bastion subnet when the VCN's CIDR is masked with the corresponding newbit value."
-  default     = 32
+  default     = 0
   type        = number
 }
 
 variable "newbits" {
   description = "The difference between the VCN's netmask and the desired bastion subnet mask"
-  default     = 13
+  default     = 14
   type        = number
 }
 
@@ -83,15 +83,15 @@ variable "vcn_id" {
 
 # bastion host parameters
 
-variable "bastion_enabled" {
-  description = "whether to create the bastion"
-  default     = false
-  type        = bool
-}
-
 variable "bastion_image_id" {
   description = "Provide a custom image id for the bastion host or leave as Autonomous."
   default     = "Autonomous"
+  type        = string
+}
+
+variable "bastion_operating_system_version" {
+  description = "In case Autonomous Linux is used, allow specification of Autonomous version"
+  default     = "7.9"
   type        = string
 }
 
@@ -105,6 +105,18 @@ variable "bastion_shape" {
 
 variable "bastion_upgrade" {
   description = "Whether to upgrade the bastion host packages after provisioning. It's useful to set this to false during development/testing so the bastion is provisioned faster."
+  default     = false
+  type        = bool
+}
+
+variable "bastion_state" {
+  description = "The target state for the instance. Could be set to RUNNING or STOPPED. (Updatable)"
+  default     = "RUNNING"
+  type        = string
+}
+
+variable "create_bastion" {
+  description = "whether to create the bastion"
   default     = false
   type        = bool
 }

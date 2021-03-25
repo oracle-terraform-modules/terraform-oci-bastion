@@ -33,9 +33,11 @@ newbits = 13
 
 vcn_id = ""
 
-bastion_enabled = true
+create_bastion = true
 
 bastion_image_id = "Autonomous"
+
+bastion_operating_system_version = "7.9"
 
 bastion_shape = {
   # shape = "VM.Standard.E2.2"
@@ -44,6 +46,8 @@ bastion_shape = {
   memory=4,
   boot_volume_size=50
 }
+
+bastion_state= "RUNNING"
 
 bastion_upgrade = false
 

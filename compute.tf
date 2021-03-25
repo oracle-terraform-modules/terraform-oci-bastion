@@ -46,9 +46,11 @@ resource "oci_core_instance" "bastion" {
     source_id               = local.bastion_image_id
   }
 
+  state = var.bastion_state
+  
   timeouts {
     create = "60m"
   }
 
-  count = var.bastion_enabled == true ? 1 : 0
+  count = var.create_bastion == true ? 1 : 0
 }
