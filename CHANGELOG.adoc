@@ -7,6 +7,14 @@ All notable changes to this project are documented in this file.
 
 The format is based on {uri-changelog}[Keep a Changelog].
 
+= v1.0.8 (April 26, 2021)
+* Last release for Terraform 0.12
+
+= v2.0.0 (December 8, 2020)
+* Set minimum version to Terraform 0.13
+* Added support for flex shapes (#11)
+* Set default launch options to PARAVIRTUALIZED
+
 = v1.0.7 (August 31,2020)
 * Reversed 1.04 and and 1.0.5 (#9)
 
