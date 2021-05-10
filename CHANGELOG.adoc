@@ -16,7 +16,7 @@ The format is based on {uri-changelog}[Keep a Changelog].
 
 === Deprecation notice
 
-The folowwing variables will be renamed at the next major release of this module (related to #18):
+The following variables will be renamed at the next major release of this module (related to #18):
 
 * var.bastion_enabled --> var.create_bastion
 
