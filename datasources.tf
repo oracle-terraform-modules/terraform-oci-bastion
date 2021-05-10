@@ -51,8 +51,10 @@ data "template_file" "autonomous_cloud_init_file" {
 data "oci_core_images" "autonomous_images" {
   compartment_id           = var.compartment_id
   operating_system         = "Oracle Autonomous Linux"
+  operating_system_version = var.bastion_operating_system_version
   shape                    = lookup(var.bastion_shape, "shape", "VM.Standard.E2.2")
   sort_by                  = "TIMECREATED"
+  sort_order               = "DESC"
 }
 
 # cloud init for bastion

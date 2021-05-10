@@ -105,12 +105,12 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |`netnum`
 |0-based index of the bastion subnet when the VCN's CIDR is masked with the corresponding newbit value.
 |
-|32
+|0
 
 |`newbits`
 |The difference between the VCN's netmask and the desired bastion subnet mask.
 |
-|13
+|14
 
 |`vcn_id`
 |The id of the VCN to use when creating the bastion resources. *Required*
@@ -138,6 +138,11 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |imageid/Autonomous
 |Autonomous
 
+|`bastion_operating_system_version`
+|In case Autonomous Linux is used, allow specification of Autonomous version
+|
+|7.9
+
 |`bastion_shape`
 |The shape of bastion instance. This is now specified as a map and supports E3.Flex. If a non-Flex shape is specified, then the other parameters are ignored.
 |e.g. `bastion_shape = {
@@ -152,6 +157,11 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
   memory=4,
   boot_volume_size=50
 }`
+
+|`bastion_state`
+|The target state for the instance. Could be set to RUNNING or STOPPED. (Updatable)
+|RUNNING|STOPPED
+|RUNNING
 
 |`bastion_upgrade`
 |Whether to upgrade the bastion host packages after provisioning. It's useful to set this to false during development/testing so the bastion is provisioned faster.

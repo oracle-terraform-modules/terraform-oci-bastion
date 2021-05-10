@@ -7,6 +7,24 @@ All notable changes to this project are documented in this file.
 
 The format is based on {uri-changelog}[Keep a Changelog].
 
+= Unreleased
+
+== New features
+* New variable (`bastion_operating_system_version`) to specify Autonomous Linux version (#15)
+* Added sort_order on images (#16)
+* New variable (`bastion_state`) to specify state of bastion host (#17)
+
+=== Deprecation notice
+
+The following variables will be renamed at the next major release of this module (related to #18):
+
+* var.bastion_enabled --> var.create_bastion
+
+= v2.0.0 (December 8, 2020)
+* Added support for flex shapes (#11)
+* Set default launch options to PARAVIRTUALIZED
+* Set minimum version to Terraform 0.13 (#12)
+
 = v1.0.7 (August 31,2020)
 * Reversed 1.04 and and 1.0.5 (#9)
 

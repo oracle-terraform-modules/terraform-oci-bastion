@@ -46,6 +46,8 @@ resource "oci_core_instance" "bastion" {
     source_id               = local.bastion_image_id
   }
 
+  state = var.bastion_state
+  
   timeouts {
     create = "60m"
   }
