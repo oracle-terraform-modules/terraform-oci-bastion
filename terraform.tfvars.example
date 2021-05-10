@@ -33,7 +33,7 @@ newbits = 13
 
 vcn_id = ""
 
-create_bastion = true
+bastion_enabled = true
 
 bastion_image_id = "Autonomous"
 

@@ -83,6 +83,13 @@ variable "vcn_id" {
 
 # bastion host parameters
 
+variable "bastion_enabled" {
+  #! Deprecation notice: will be renamed to create_bastion at next major release
+  description = "whether to create the bastion"
+  default     = false
+  type        = bool
+}
+
 variable "bastion_image_id" {
   description = "Provide a custom image id for the bastion host or leave as Autonomous."
   default     = "Autonomous"
@@ -113,12 +120,6 @@ variable "bastion_state" {
   description = "The target state for the instance. Could be set to RUNNING or STOPPED. (Updatable)"
   default     = "RUNNING"
   type        = string
-}
-
-variable "create_bastion" {
-  description = "whether to create the bastion"
-  default     = false
-  type        = bool
 }
 
 variable "ssh_public_key" {

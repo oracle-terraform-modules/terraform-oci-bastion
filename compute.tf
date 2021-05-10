@@ -52,5 +52,5 @@ resource "oci_core_instance" "bastion" {
     create = "60m"
   }
 
-  count = var.create_bastion == true ? 1 : 0
+  count = var.bastion_enabled == true ? 1 : 0
 }
