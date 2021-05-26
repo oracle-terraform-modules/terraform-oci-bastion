@@ -105,21 +105,27 @@ variable "bastion_operating_system_version" {
 variable "bastion_shape" {
   description = "The shape of bastion instance."
   default     = {
-   shape = "VM.Standard.E3.Flex", ocpus = 1, memory = 4, boot_volume_size = 50
+   shape = "VM.Standard.E4.Flex", ocpus = 1, memory = 4, boot_volume_size = 50
   }
   type        = map(any)
-}
-
-variable "bastion_upgrade" {
-  description = "Whether to upgrade the bastion host packages after provisioning. It's useful to set this to false during development/testing so the bastion is provisioned faster."
-  default     = false
-  type        = bool
 }
 
 variable "bastion_state" {
   description = "The target state for the instance. Could be set to RUNNING or STOPPED. (Updatable)"
   default     = "RUNNING"
   type        = string
+}
+
+variable "bastion_type" {
+  description = "Whether to make the bastion host public or private."
+  default     = "public"
+  type        = string
+}
+
+variable "bastion_upgrade" {
+  description = "Whether to upgrade the bastion host packages after provisioning. It's useful to set this to false during development/testing so the bastion is provisioned faster."
+  default     = false
+  type        = bool
 }
 
 variable "ssh_public_key" {
