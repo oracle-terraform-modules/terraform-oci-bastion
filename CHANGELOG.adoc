@@ -13,6 +13,7 @@ The format is based on {uri-changelog}[Keep a Changelog].
 * New variable (`bastion_operating_system_version`) to specify Autonomous Linux version (#15)
 * Added sort_order on images (#16)
 * New variable (`bastion_state`) to specify state of bastion host (#17)
+* Added support for private bastion host (#23)
 
 === Deprecation notice
 
