@@ -7,7 +7,7 @@ resource "oci_core_instance" "bastion" {
   freeform_tags       = var.tags
 
   create_vnic_details {
-    assign_public_ip = true
+    assign_public_ip = var.bastion_type == "public" ? true : false
     display_name     = var.label_prefix == "none" ? "bastion-vnic" : "${var.label_prefix}-bastion-vnic"
     hostname_label   = "bastion"
     subnet_id        = oci_core_subnet.bastion[0].id
