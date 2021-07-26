@@ -10,7 +10,7 @@ The format is based on {uri-changelog}[Keep a Changelog].
 = Unreleased
 
 == New features
-* Renamed variable bastion_upgrade --> upgrade_operator
+* Renamed variable bastion_upgrade --> upgrade_bastion
 * Renamed variable timezone --> bastion_timezone
 * AD lookup mechanism reimplemented to remove dependency on deprecated template_file data source
 * Replaced deprecated template_file data source with templatefile function
