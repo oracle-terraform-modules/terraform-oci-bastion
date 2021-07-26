@@ -42,8 +42,8 @@ data "template_cloudinit_config" "bastion" {
     content_type = "text/cloud-config"
     content = templatefile(
       local.autonomous_template, {
-        bastion_timezone        = var.bastion_timezone
-        notification_sh_content = local.notification_template
+        bastion_timezone        = var.bastion_timezone,
+        notification_sh_content = local.notification_template,
         upgrade_bastion         = var.upgrade_bastion
       }
     )

@@ -16,7 +16,7 @@ locals {
   notification_template = base64gzip(
     templatefile("${path.module}/scripts/notification.template.sh",
       {
-        enable_notification = var.enable_notification
+        enable_notification = var.enable_notification,
         topic_id            = var.enable_notification == true ? oci_ons_notification_topic.bastion_notification[0].topic_id : "null"
       }
     )
