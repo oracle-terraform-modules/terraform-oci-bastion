@@ -6,7 +6,6 @@
 
 locals {
   all_protocols    = "all"
-  ad_names         = data.template_file.ad_names.*.rendered
   anywhere         = "0.0.0.0/0"
   ssh_port         = 22
   tcp_protocol     = 6

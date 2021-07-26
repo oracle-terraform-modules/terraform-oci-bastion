@@ -2,9 +2,21 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 resource "oci_core_instance" "bastion" {
-  availability_domain = element(local.ad_names, (var.availability_domain - 1))
+  availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_id
   freeform_tags       = var.tags
+
+  agent_config {
+
+    are_all_plugins_disabled = false
+    is_management_disabled   = false
+    is_monitoring_disabled   = false
+
+    plugins_config {
+      desired_state = "DISABLED"
+      name          = "Bastion"
+    }
+  }
 
   create_vnic_details {
     assign_public_ip = var.bastion_type == "public" ? true : false
@@ -47,10 +59,10 @@ resource "oci_core_instance" "bastion" {
   }
 
   state = var.bastion_state
-  
+
   timeouts {
     create = "60m"
   }
 
-  count = var.bastion_enabled == true ? 1 : 0
+  count = var.create_bastion == true ? 1 : 0
 }

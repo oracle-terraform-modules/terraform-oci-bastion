@@ -33,7 +33,7 @@ newbits = 13
 
 vcn_id = ""
 
-bastion_enabled = true
+create_bastion = true
 
 bastion_image_id = "Autonomous"
 
@@ -49,15 +49,19 @@ bastion_shape = {
 
 bastion_state= "RUNNING"
 
-bastion_upgrade = false
+bastion_timezone = "Australia/Sydney"
+
+bastion_type = "public"
 
 ssh_public_key = ""
 
 ssh_public_key_path = ""
 
+upgrade_bastion = false
+
 # notification
 
-notification_enabled = false
+enable_notification = false
 
 notification_endpoint = ""
 
