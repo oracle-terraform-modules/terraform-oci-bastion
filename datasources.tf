@@ -41,17 +41,10 @@ data "template_cloudinit_config" "bastion" {
     filename     = "bastion.yaml"
     content_type = "text/cloud-config"
     content = templatefile(
-      "${path.module}/cloudinit/autonomous.template.yaml", {
-        notification_sh_content = base64gzip(
-          templatefile("${path.module}/scripts/notification.template.sh",
-            {
-              enable_notification = var.enable_notification
-              topic_id            = var.enable_notification == true ? oci_ons_notification_topic.bastion_notification[0].topic_id : "null"
-            }
-          )
-        )
-        upgrade_bastion  = var.upgrade_bastion
-        bastion_timezone = var.bastion_timezone
+      local.autonomous_template, {
+        bastion_timezone        = var.bastion_timezone
+        notification_sh_content = local.notification_template
+        upgrade_bastion         = var.upgrade_bastion
       }
     )
   }
