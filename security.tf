@@ -23,5 +23,5 @@ resource "oci_core_security_list" "bastion" {
   }
   vcn_id = var.vcn_id
 
-  count = var.bastion_enabled == true ? 1 : 0
+  count = var.create_bastion == true ? 1 : 0
 }

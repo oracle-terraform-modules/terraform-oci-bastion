@@ -83,8 +83,7 @@ variable "vcn_id" {
 
 # bastion host parameters
 
-variable "bastion_enabled" {
-  #! Deprecation notice: will be renamed to create_bastion at next major release
+variable "create_bastion" {
   description = "whether to create the bastion"
   default     = false
   type        = bool
@@ -116,16 +115,16 @@ variable "bastion_state" {
   type        = string
 }
 
+variable "bastion_timezone" {
+  description = "The preferred timezone for the bastion host."
+  default     = "Australia/Sydney"
+  type        = string
+}
+
 variable "bastion_type" {
   description = "Whether to make the bastion host public or private."
   default     = "public"
   type        = string
-}
-
-variable "bastion_upgrade" {
-  description = "Whether to upgrade the bastion host packages after provisioning. It's useful to set this to false during development/testing so the bastion is provisioned faster."
-  default     = false
-  type        = bool
 }
 
 variable "ssh_public_key" {
@@ -140,15 +139,15 @@ variable "ssh_public_key_path" {
   type        = string
 }
 
-variable "timezone" {
-  description = "The preferred timezone for the bastion host."
-  default     = "Australia/Sydney"
-  type        = string
+variable "upgrade_bastion" {
+  description = "Whether to upgrade the bastion host packages after provisioning. It's useful to set this to false during development/testing so the bastion is provisioned faster."
+  default     = false
+  type        = bool
 }
 
 # bastion notification
 
-variable "notification_enabled" {
+variable "enable_notification" {
   description = "Whether to enable ONS notification for the bastion host."
   default     = false
   type        = bool

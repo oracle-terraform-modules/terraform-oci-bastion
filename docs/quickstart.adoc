@@ -81,8 +81,8 @@ provider "oci" {
 . Optional parameters to override:
 
 * `bastion_shape`
-* `bastion_upgrade`
-* `notification_enabled`
+* `upgrade_bastion`
+* `enable_notification`
 * `notification_endpoint`
 
 . Run Terraform:
