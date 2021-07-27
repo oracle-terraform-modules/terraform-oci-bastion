@@ -39,7 +39,7 @@ resource "oci_core_instance" "bastion" {
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key != "" ? var.ssh_public_key : file(var.ssh_public_key_path)
-    user_data           = data.template_cloudinit_config.bastion[0].rendered
+    user_data           = data.cloudinit_config.bastion[0].rendered
   }
 
   shape = lookup(var.bastion_shape, "shape", "VM.Standard.E2.2")

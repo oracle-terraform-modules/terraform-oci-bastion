@@ -33,7 +33,7 @@ data "oci_core_images" "autonomous_images" {
 }
 
 # cloud init for bastion
-data "template_cloudinit_config" "bastion" {
+data "cloudinit_config" "bastion" {
   gzip          = true
   base64_encode = true
 
