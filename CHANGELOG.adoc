@@ -10,6 +10,13 @@ The format is based on {uri-changelog}[Keep a Changelog].
 = Unreleased
 
 == New features
+* Renamed notification variables
+** create_bastion -> create_bastion_host
+** enable_notification -> create_bastion_notification
+** notification_endpoint -> bastion_notification_endpoint
+** notification_protocol -> bastion_notification_protocol
+** notification_topic -> bastion_notification_topic
+** Changed bastion access from a single CIDR to a list of CIDR blocks (#29)
 * Renamed variable bastion_upgrade --> upgrade_bastion
 * Renamed variable timezone --> bastion_timezone
 * AD lookup mechanism reimplemented to remove dependency on deprecated template_file data source

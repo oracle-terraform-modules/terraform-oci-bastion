@@ -27,9 +27,9 @@ bastion_access = "ANYWHERE"
 
 ig_route_id = ""
 
-netnum = 32
+netnum = 30
 
-newbits = 13
+newbits = 14
 
 vcn_id = ""
 
@@ -40,7 +40,6 @@ bastion_image_id = "Autonomous"
 bastion_operating_system_version = "7.9"
 
 bastion_shape = {
-  # shape = "VM.Standard.E2.2"
   shape="VM.Standard.E4.Flex",
   ocpus=1,
   memory=4,
@@ -61,16 +60,16 @@ upgrade_bastion = false
 
 # notification
 
-enable_notification = false
+create_bastion_notification = false
 
-notification_endpoint = ""
+bastion_notification_endpoint = ""
 
-notification_protocol = "EMAIL"
+bastion_notification_protocol = "EMAIL"
 
-notification_topic = "bastion"
+bastion_notification_topic = "bastion"
 
 tags = {
-    department  = "finance"
+    access      = "public"
     environment = "dev"
     role        = "bastion"
 }
