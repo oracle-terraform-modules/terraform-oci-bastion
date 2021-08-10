@@ -93,9 +93,9 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |1
 
 |`bastion_access`
-|CIDR block in the form of a string to which ssh access to the bastion must be restricted to. *_ANYWHERE_* is equivalent to 0.0.0.0/0 and allows ssh access from anywhere.
-|ANYWHERE or a cidr block such as XXX.XXX.XXX.XXX/YY
-|ANYWHERE
+|A list of CIDR blocks to which ssh access to the bastion must be restricted to. *anywhere* is equivalent to 0.0.0.0/0 and allows ssh access from anywhere. Updatable.
+|["anywhere"] or a list of cidr block such as [XXX.XXX.XXX.XXX/YY]
+|["anywhere"]
 
 |`ig_route_id`
 |the route id to the internet gateway of the VCN 
@@ -128,8 +128,8 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`create_bastion`
-|whether to create the bastion
+|`create_bastion_host`
+|whether to create the bastion host
 | true/false
 |true
 
@@ -200,22 +200,22 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`enable_notification`
+|`create_bastion_notification`
 |Whether to enable ONS notification for the bastion host.
 |true/false
 |false
 
-|`notification_endpoint`
+|`bastion_notification_endpoint`
 |The subscription notification endpoint. Email address to be notified. *Required if enable_notification = true* ..
 |
 |Autonomous
 
-|`notification_protocol`
+|`bastion_notification_protocol`
 |The notification protocol used.
 |
 |EMAIL
 
-|`notification_topic`
+|`bastion_notification_topic`
 |The name of the notification topic.
 |
 |bastion
@@ -237,7 +237,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 [source]
 ----
 tags = {
-    department  = "finance"
+    access      = "public"
     environment = "dev"
     role        = "bastion"
 }

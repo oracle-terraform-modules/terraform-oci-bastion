@@ -1,4 +1,4 @@
-# Copyright 2019, 2020 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 data "oci_identity_availability_domain" "ad" {
@@ -48,7 +48,7 @@ data "cloudinit_config" "bastion" {
       }
     )
   }
-  count = var.create_bastion == true ? 1 : 0
+  count = var.create_bastion_host == true ? 1 : 0
 }
 
 # Gets a list of VNIC attachments on the bastion instance
@@ -58,7 +58,7 @@ data "oci_core_vnic_attachments" "bastion_vnics_attachments" {
   depends_on          = [oci_core_instance.bastion]
   instance_id         = oci_core_instance.bastion[0].id
 
-  count = var.create_bastion == true ? 1 : 0
+  count = var.create_bastion_host == true ? 1 : 0
 }
 
 # Gets the OCID of the first (default) VNIC on the bastion instance
@@ -66,18 +66,18 @@ data "oci_core_vnic" "bastion_vnic" {
   depends_on = [oci_core_instance.bastion]
   vnic_id    = lookup(data.oci_core_vnic_attachments.bastion_vnics_attachments[0].vnic_attachments[0], "vnic_id")
 
-  count = var.create_bastion == true ? 1 : 0
+  count = var.create_bastion_host == true ? 1 : 0
 }
 
 data "oci_core_instance" "bastion" {
   depends_on  = [oci_core_instance.bastion]
   instance_id = oci_core_instance.bastion[0].id
 
-  count = var.create_bastion == true ? 1 : 0
+  count = var.create_bastion_host == true ? 1 : 0
 }
 
 data "oci_ons_notification_topic" "bastion_notification" {
   topic_id = oci_ons_notification_topic.bastion_notification[0].topic_id
 
-  count = (var.create_bastion == true && var.enable_notification == true) ? 1 : 0
+  count = (var.create_bastion_host == true && var.create_bastion_notification == true) ? 1 : 0
 }

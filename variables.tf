@@ -54,9 +54,9 @@ variable "availability_domain" {
 }
 
 variable "bastion_access" {
-  description = "CIDR block in the form of a string to which ssh access to the bastion must be restricted to. *_ANYWHERE_* is equivalent to 0.0.0.0/0 and allows ssh access from anywhere."
-  default     = "ANYWHERE"
-  type        = string
+  description = "A list of CIDR blocks to which ssh access to the bastion must be restricted to. *anywhere* is equivalent to 0.0.0.0/0 and allows ssh access from anywhere."
+  default     = ["anywhere"]
+  type        = list
 }
 
 variable "ig_route_id" {
@@ -83,8 +83,8 @@ variable "vcn_id" {
 
 # bastion host parameters
 
-variable "create_bastion" {
-  description = "whether to create the bastion"
+variable "create_bastion_host" {
+  description = "Whether to create the bastion host."
   default     = false
   type        = bool
 }
@@ -103,10 +103,10 @@ variable "bastion_operating_system_version" {
 
 variable "bastion_shape" {
   description = "The shape of bastion instance."
-  default     = {
-   shape = "VM.Standard.E4.Flex", ocpus = 1, memory = 4, boot_volume_size = 50
+  default = {
+    shape = "VM.Standard.E4.Flex", ocpus = 1, memory = 4, boot_volume_size = 50
   }
-  type        = map(any)
+  type = map(any)
 }
 
 variable "bastion_state" {
@@ -147,25 +147,25 @@ variable "upgrade_bastion" {
 
 # bastion notification
 
-variable "enable_notification" {
+variable "create_bastion_notification" {
   description = "Whether to enable ONS notification for the bastion host."
   default     = false
   type        = bool
 }
 
-variable "notification_endpoint" {
+variable "bastion_notification_endpoint" {
   description = "The subscription notification endpoint. Email address to be notified."
   default     = null
   type        = string
 }
 
-variable "notification_protocol" {
+variable "bastion_notification_protocol" {
   description = "The notification protocol used."
   default     = "EMAIL"
   type        = string
 }
 
-variable "notification_topic" {
+variable "bastion_notification_topic" {
   description = "The name of the notification topic"
   default     = "bastion"
   type        = string
@@ -175,7 +175,7 @@ variable "notification_topic" {
 variable "tags" {
   description = "Freeform tags for bastion"
   default = {
-    department  = "finance"
+    access      = "public"
     environment = "dev"
     role        = "bastion"
   }

@@ -1,4 +1,4 @@
-# Copyright 2019, 2020 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 resource "oci_core_security_list" "bastion" {
@@ -11,17 +11,22 @@ resource "oci_core_security_list" "bastion" {
     destination = local.anywhere
   }
 
-  ingress_security_rules {
+  dynamic "ingress_security_rules" {
     # allow ssh
-    protocol = local.tcp_protocol
-    source   = var.bastion_access == "ANYWHERE" ? local.anywhere : var.bastion_access
 
-    tcp_options {
-      min = local.ssh_port
-      max = local.ssh_port
+    for_each = var.bastion_access
+    iterator = bastion_access_iterator
+    content {
+      protocol = local.tcp_protocol
+      source   = bastion_access_iterator.value == "anywhere" ? local.anywhere : bastion_access_iterator.value
+
+      tcp_options {
+        min = local.ssh_port
+        max = local.ssh_port
+      }
     }
   }
   vcn_id = var.vcn_id
 
-  count = var.create_bastion == true ? 1 : 0
+  count = var.create_bastion_host == true ? 1 : 0
 }
