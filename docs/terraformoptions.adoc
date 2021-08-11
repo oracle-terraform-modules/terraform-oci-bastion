@@ -138,7 +138,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |imageid/Autonomous
 |Autonomous
 
-|`bastion_operating_system_version`
+|`bastion_os_version`
 |In case Autonomous Linux is used, allow specification of Autonomous version
 |
 |7.9

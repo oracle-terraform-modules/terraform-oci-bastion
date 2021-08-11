@@ -37,7 +37,7 @@ create_bastion = true
 
 bastion_image_id = "Autonomous"
 
-bastion_operating_system_version = "7.9"
+bastion_os_version = "7.9"
 
 bastion_shape = {
   shape="VM.Standard.E4.Flex",

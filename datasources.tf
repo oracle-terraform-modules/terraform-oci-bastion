@@ -3,20 +3,7 @@
 
 data "oci_identity_availability_domain" "ad" {
   compartment_id = var.tenancy_id
-
   ad_number = var.availability_domain
-}
-
-data "oci_identity_tenancy" "tenancy" {
-  tenancy_id = var.tenancy_id
-}
-
-# get the tenancy's home region
-data "oci_identity_regions" "home_region" {
-  filter {
-    name   = "key"
-    values = [data.oci_identity_tenancy.tenancy.home_region_key]
-  }
 }
 
 data "oci_core_vcn" "vcn" {
@@ -26,7 +13,7 @@ data "oci_core_vcn" "vcn" {
 data "oci_core_images" "autonomous_images" {
   compartment_id           = var.compartment_id
   operating_system         = "Oracle Autonomous Linux"
-  operating_system_version = var.bastion_operating_system_version
+  operating_system_version = var.bastion_os_version
   shape                    = lookup(var.bastion_shape, "shape", "VM.Standard.E2.2")
   sort_by                  = "TIMECREATED"
   sort_order               = "DESC"
