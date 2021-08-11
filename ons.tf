@@ -1,15 +1,6 @@
 # Copyright 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
-# provider "oci" {
-#   alias            = "home"
-#   fingerprint      = var.api_fingerprint
-#   private_key_path = var.api_private_key_path
-#   region           = lookup(data.oci_identity_regions.home_region.regions[0], "name")
-#   tenancy_ocid     = var.tenancy_id
-#   user_ocid        = var.user_id
-# }
-
 resource "oci_ons_notification_topic" "bastion_notification" {
   compartment_id = var.compartment_id
   name           = var.label_prefix == "none" ? var.bastion_notification_topic : "${var.label_prefix}-${var.bastion_notification_topic}"
