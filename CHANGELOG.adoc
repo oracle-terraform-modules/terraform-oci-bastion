@@ -26,6 +26,7 @@ The format is based on {uri-changelog}[Keep a Changelog].
 ** notification_topic -> bastion_notification_topic
 ** Renamed variable bastion_upgrade --> upgrade_bastion
 ** Renamed variable timezone --> bastion_timezone
+** Renamed variable tags --> bastion_tags
 * Changed bastion access from a single CIDR to a list of CIDR blocks (#29)
 * AD lookup mechanism reimplemented to remove dependency on deprecated template_file data source (#27)
 * Replaced all deprecated template_file data source with templatefile function (#27)

@@ -68,7 +68,7 @@ bastion_notification_protocol = "EMAIL"
 
 bastion_notification_topic = "bastion"
 
-tags = {
+bastion_tags = {
     access      = "public"
     environment = "dev"
     role        = "bastion"

@@ -4,7 +4,7 @@
 resource "oci_core_instance" "bastion" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_id
-  freeform_tags       = var.tags
+  freeform_tags       = var.bastion_tags
 
   agent_config {
 

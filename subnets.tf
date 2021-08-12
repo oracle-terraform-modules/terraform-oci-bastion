@@ -6,7 +6,7 @@ resource "oci_core_subnet" "bastion" {
   compartment_id             = var.compartment_id
   display_name               = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
   dns_label                  = "bastion1"
-  freeform_tags              = var.tags
+  freeform_tags              = var.bastion_tags
   prohibit_public_ip_on_vnic = var.bastion_type == "public" ? false : true
   route_table_id             = var.ig_route_id
   security_list_ids          = [oci_core_security_list.bastion[0].id]

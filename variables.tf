@@ -145,7 +145,7 @@ variable "bastion_notification_topic" {
 }
 
 # tagging
-variable "tags" {
+variable "bastion_tags" {
   description = "Freeform tags for bastion"
   default = {
     access      = "public"
