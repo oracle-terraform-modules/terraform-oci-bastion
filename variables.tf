@@ -120,7 +120,7 @@ variable "upgrade_bastion" {
 }
 
 # bastion notification
-variable "create_bastion_notification" {
+variable "enable_bastion_notification" {
   description = "Whether to enable ONS notification for the bastion host."
   default     = false
   type        = bool

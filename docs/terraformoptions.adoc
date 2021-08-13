@@ -180,7 +180,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`create_bastion_notification`
+|`enable_bastion_notification`
 |Whether to enable ONS notification for the bastion host.
 |true/false
 |false

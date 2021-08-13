@@ -60,7 +60,7 @@ upgrade_bastion = false
 
 # notification
 
-create_bastion_notification = false
+enable_bastion_notification = false
 
 bastion_notification_endpoint = ""
 

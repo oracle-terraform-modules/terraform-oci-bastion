@@ -20,7 +20,7 @@ The format is based on {uri-changelog}[Keep a Changelog].
 * OCI home region provider now expected as parameter to providers
 * Renamed notification variables (#18)
 ** create_bastion -> create_bastion_host
-** enable_notification -> create_bastion_notification
+** enable_notification -> enable_bastion_notification
 ** notification_endpoint -> bastion_notification_endpoint
 ** notification_protocol -> bastion_notification_protocol
 ** notification_topic -> bastion_notification_topic
