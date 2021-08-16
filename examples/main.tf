@@ -41,7 +41,7 @@ module "bastion" {
 
   upgrade_bastion = false
 
-  tags = {
+  bastion_tags = {
     access      = "public"
     environment = "dev"
     role        = "bastion"

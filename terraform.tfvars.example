@@ -23,7 +23,7 @@ label_prefix = "dev"
 
 availability_domain = 1
 
-bastion_access = "ANYWHERE"
+bastion_access = ["anywhere"]
 
 ig_route_id = ""
 
