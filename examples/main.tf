@@ -25,15 +25,9 @@ module "bastion" {
 
   label_prefix   = var.label_prefix
 
-  availability_domain = var.availability_domain
-
   ig_route_id = var.ig_route_id
 
-  netnum = var.netnum
-
-  newbits = var.newbits
-
-  vcn_id = "ocid1.vcn.."
+  vcn_id = var.vcn_id
 
   create_bastion_host = true
 
