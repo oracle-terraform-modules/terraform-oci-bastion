@@ -1,4 +1,4 @@
-# Copyright (c) 2019, 2020 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright (c) 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 # provider identity parameters
@@ -23,7 +23,7 @@ label_prefix = "dev"
 
 availability_domain = 1
 
-bastion_access = "ANYWHERE"
+bastion_access = ["anywhere"]
 
 ig_route_id = ""
 
@@ -37,7 +37,7 @@ create_bastion = true
 
 bastion_image_id = "Autonomous"
 
-bastion_operating_system_version = "7.9"
+bastion_os_version = "7.9"
 
 bastion_shape = {
   shape="VM.Standard.E4.Flex",
@@ -60,7 +60,7 @@ upgrade_bastion = false
 
 # notification
 
-create_bastion_notification = false
+enable_bastion_notification = false
 
 bastion_notification_endpoint = ""
 
@@ -68,7 +68,7 @@ bastion_notification_protocol = "EMAIL"
 
 bastion_notification_topic = "bastion"
 
-tags = {
+bastion_tags = {
     access      = "public"
     environment = "dev"
     role        = "bastion"

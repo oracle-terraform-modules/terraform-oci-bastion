@@ -1,20 +1,11 @@
 # Copyright 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
-provider "oci" {
-  alias            = "home"
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = lookup(data.oci_identity_regions.home_region.regions[0], "name")
-  tenancy_ocid     = var.tenancy_id
-  user_ocid        = var.user_id
-}
-
 resource "oci_ons_notification_topic" "bastion_notification" {
   compartment_id = var.compartment_id
   name           = var.label_prefix == "none" ? var.bastion_notification_topic : "${var.label_prefix}-${var.bastion_notification_topic}"
 
-  count = (var.create_bastion_host == true && var.create_bastion_notification == true) ? 1 : 0
+  count = (var.create_bastion_host == true && var.enable_bastion_notification == true) ? 1 : 0
 }
 
 resource "oci_ons_subscription" "bastion_notification" {
@@ -23,7 +14,7 @@ resource "oci_ons_subscription" "bastion_notification" {
   protocol       = var.bastion_notification_protocol
   topic_id       = oci_ons_notification_topic.bastion_notification[0].topic_id
 
-  count = (var.create_bastion_host == true && var.create_bastion_notification == true) ? 1 : 0
+  count = (var.create_bastion_host == true && var.enable_bastion_notification == true) ? 1 : 0
 }
 
 resource "oci_identity_dynamic_group" "bastion_notification" {
@@ -35,7 +26,7 @@ resource "oci_identity_dynamic_group" "bastion_notification" {
   matching_rule  = "ALL {instance.id = '${join(",", data.oci_core_instance.bastion.*.id)}'}"
   name           = var.label_prefix == "none" ? "bastion-notification" : "${var.label_prefix}-bastion-notification"
 
-  count = (var.create_bastion_host == true && var.create_bastion_notification == true) ? 1 : 0
+  count = (var.create_bastion_host == true && var.enable_bastion_notification == true) ? 1 : 0
 }
 
 resource "oci_identity_policy" "bastion_notification" {
@@ -47,5 +38,5 @@ resource "oci_identity_policy" "bastion_notification" {
   name           = var.label_prefix == "none" ? "bastion-notification" : "${var.label_prefix}-bastion-notification"
   statements     = ["Allow dynamic-group ${oci_identity_dynamic_group.bastion_notification[0].name} to use ons-topic in compartment id ${var.compartment_id} where request.permission='ONS_TOPIC_PUBLISH'"]
 
-  count = (var.create_bastion_host == true && var.create_bastion_notification == true) ? 1 : 0
+  count = (var.create_bastion_host == true && var.enable_bastion_notification == true) ? 1 : 0
 }

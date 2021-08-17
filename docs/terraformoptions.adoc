@@ -29,28 +29,8 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`api_fingerprint`
-|ssl fingerprint of api public key. *Required when configuring provider*.
-|
-|None
-
-|`api_private_key_path`
-|path to api private key. *Required when configuring provider*.
-|
-|None
-
-|`region`
-|Region where to provision the OKE cluster. {uri-oci-region}[List of regions]. *Required when configuring provider*.
-|
-|None
-
 |`tenancy_id`
 |Tenancy id of the user. *Required when configuring provider*.
-|
-|None
-
-|`user_id`
-|User's id. *Required when configuring provider*.
 |
 |None
 
@@ -94,8 +74,8 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 
 |`bastion_access`
 |A list of CIDR blocks to which ssh access to the bastion must be restricted to. *anywhere* is equivalent to 0.0.0.0/0 and allows ssh access from anywhere. Updatable.
-|["anywhere"] or a list of cidr block such as [XXX.XXX.XXX.XXX/YY]
-|["anywhere"]
+|`["anywhere"]`` or a list of cidr block such as `[XXX.XXX.XXX.XXX/YY]`
+|`["anywhere"]`
 
 |`ig_route_id`
 |the route id to the internet gateway of the VCN 
@@ -138,7 +118,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |imageid/Autonomous
 |Autonomous
 
-|`bastion_operating_system_version`
+|`bastion_os_version`
 |In case Autonomous Linux is used, allow specification of Autonomous version
 |
 |7.9
@@ -160,7 +140,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 
 |`bastion_state`
 |The target state for the instance. Could be set to RUNNING or STOPPED. (Updatable)
-|RUNNING|STOPPED
+|RUNNING/STOPPED
 |RUNNING
 
 |`bastion_timezone`
@@ -170,7 +150,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 
 |`bastion_type`
 |Whether to make the bastion host public or private.
-|public|private
+|public/private
 |public
 
 |`ssh_public_key`
@@ -200,7 +180,7 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`create_bastion_notification`
+|`enable_bastion_notification`
 |Whether to enable ONS notification for the bastion host.
 |true/false
 |false
@@ -230,13 +210,13 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`tags`
+|`bastion_tags`
 |Freeform tags for bastion.
 |
 |
 [source]
 ----
-tags = {
+bastion_tags = {
     access      = "public"
     environment = "dev"
     role        = "bastion"

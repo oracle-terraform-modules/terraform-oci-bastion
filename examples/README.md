@@ -41,14 +41,6 @@ mkdir modules
 cd modules
 ```
 
-5. Add the terraform-oci-bastion module
-
-```
-git clone https://github.com/oracle/terraform-oci-bastion.git bastion
-```
-
-Note: Cloning will be required until the module is published in HashiCorp's registry.
-
 ## Define project variables
 
 ### Variables to reuse the vcn module
@@ -63,18 +55,57 @@ See [`variables.tf`][rootvariables] in this directory.
 1. Define the bastion module in root `main.tf`
 
 ```
-module "vcn" {
-  source = "./modules/vcn"
-  
-  # general oci parameters
+provider "oci" {
+  fingerprint      = var.api_fingerprint
+  private_key_path = var.api_private_key_path
+  region           = var.region
+  tenancy_ocid     = var.tenancy_id
+  user_ocid        = var.user_id
+}
+
+provider "oci" {
+  fingerprint      = var.api_fingerprint
+  private_key_path = var.api_private_key_path
+  region           = var.region
+  tenancy_ocid     = var.tenancy_id
+  user_ocid        = var.user_id
+  alias            = "home"
+}
+
+module "bastion" {
+  source = "../"
+  tenancy_id     = var.tenancy_id
   compartment_id = var.compartment_id
+
   label_prefix   = var.label_prefix
 
-  # vcn parameters
-  ig_route_id         = var.ig_route_id
-  vcn_id              = var.vcn_id
-  ssh_public_key      = var.ssh_public_key
+  availability_domain = var.availability_domain
+
+  ig_route_id = var.ig_route_id
+
+  netnum = var.netnum
+
+  newbits = var.newbits
+
+  vcn_id = var.vcn_id
+
+  create_bastion_host = true
+
+  ssh_public_key_path = "~/.ssh/id_rsa.pub"
+
+  upgrade_bastion = false
+
+  bastion_tags = {
+    access      = "public"
+    environment = "dev"
+    role        = "bastion"
+  }
+
+  providers = {
+      oci.home = oci.home
+  }
 }
+
 ```
 
 2. Enter appropriate values for `terraform.tfvars`. Review [Terraform Options][terraformoptions] for reference

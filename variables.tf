@@ -1,39 +1,14 @@
-# Copyright (c) 2019, 2020 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright (c) 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
-# provider identity parameters
-variable "api_fingerprint" {
-  description = "fingerprint of oci api private key"
-  type        = string
-  default     = ""
-}
-
-variable "api_private_key_path" {
-  description = "path to oci api private key used"
-  type        = string
-  default     = ""
-}
-
-variable "region" {
-  # List of regions: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/regions.htm#ServiceAvailabilityAcrossRegions
-  description = "the oci region where resources will be created"
-  type        = string
-}
-
+# provider parameters
 variable "tenancy_id" {
   description = "tenancy id where to create the sources"
   type        = string
   default     = ""
 }
 
-variable "user_id" {
-  description = "id of user that terraform will use to create the resources"
-  type        = string
-  default     = ""
-}
-
 # general oci parameters
-
 variable "compartment_id" {
   description = "compartment id where to create all resources"
   type        = string
@@ -46,7 +21,6 @@ variable "label_prefix" {
 }
 
 # network parameters
-
 variable "availability_domain" {
   description = "the AD to place the bastion host"
   default     = 1
@@ -95,7 +69,7 @@ variable "bastion_image_id" {
   type        = string
 }
 
-variable "bastion_operating_system_version" {
+variable "bastion_os_version" {
   description = "In case Autonomous Linux is used, allow specification of Autonomous version"
   default     = "7.9"
   type        = string
@@ -146,8 +120,7 @@ variable "upgrade_bastion" {
 }
 
 # bastion notification
-
-variable "create_bastion_notification" {
+variable "enable_bastion_notification" {
   description = "Whether to enable ONS notification for the bastion host."
   default     = false
   type        = bool
@@ -172,7 +145,7 @@ variable "bastion_notification_topic" {
 }
 
 # tagging
-variable "tags" {
+variable "bastion_tags" {
   description = "Freeform tags for bastion"
   default = {
     access      = "public"
