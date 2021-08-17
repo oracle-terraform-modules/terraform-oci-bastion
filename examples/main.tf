@@ -19,11 +19,11 @@ provider "oci" {
 }
 
 module "bastion" {
-  source = "../terraform-oci-bastion"
+  source         = "../"
   tenancy_id     = var.tenancy_id
   compartment_id = var.compartment_id
 
-  label_prefix   = var.label_prefix
+  label_prefix = var.label_prefix
 
   ig_route_id = var.ig_route_id
 
@@ -42,6 +42,6 @@ module "bastion" {
   }
 
   providers = {
-      oci.home = oci.home
+    oci.home = oci.home
   }
 }

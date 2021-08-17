@@ -41,14 +41,6 @@ mkdir modules
 cd modules
 ```
 
-5. Add the terraform-oci-bastion module
-
-```
-git clone https://github.com/oracle/terraform-oci-bastion.git bastion
-```
-
-Note: Cloning will be required until the module is published in HashiCorp's registry.
-
 ## Define project variables
 
 ### Variables to reuse the vcn module
@@ -81,7 +73,7 @@ provider "oci" {
 }
 
 module "bastion" {
-  source = "./bastion"
+  source = "../"
   tenancy_id     = var.tenancy_id
   compartment_id = var.compartment_id
 
