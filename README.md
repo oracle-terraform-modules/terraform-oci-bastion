@@ -1,20 +1,20 @@
 # Terraform OCI Bastion for Oracle Cloud Infrastructure
 
-[changelog]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/master/CHANGELOG.adoc
-[contributing]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/master/CONTRIBUTING.adoc
-[contributors]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/master/CONTRIBUTORS.adoc
-[docs]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/tree/master/docs
+[changelog]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/CHANGELOG.adoc
+[contributing]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/CONTRIBUTING.adoc
+[contributors]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/CONTRIBUTORS.adoc
+[docs]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/tree/main/docs
 
-[license]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/master/LICENSE
+[license]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/LICENSE
 [canonical_license]: https://oss.oracle.com/licenses/upl/
 
 [oci]: https://cloud.oracle.com/cloud-infrastructure
 [oci_documentation]: https://docs.cloud.oracle.com/iaas/Content/home.htm
 
 [oracle]: https://www.oracle.com
-[prerequisites]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/master/docs/prerequisites.adoc
+[prerequisites]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/docs/prerequisites.adoc
 
-[quickstart]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/master/docs/quickstart.adoc
+[quickstart]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/docs/quickstart.adoc
 [repo]: https://github.com/oracle/terraform-oci-bastion
 [reuse]: https://github.com/oracle/terraform-oci-bastion/examples/db
 [subnets]: https://erikberg.com/notes/networks.html
@@ -22,7 +22,7 @@
 [terraform_cidr_subnet]: http://blog.itsjustcode.net/blog/2017/11/18/terraform-cidrsubnet-deconstructed/
 [terraform_hashircorp_examples]: https://github.com/hashicorp/terraform-guides/tree/master/infrastructure-as-code/terraform-0.12-examples
 [terraform_oci]: https://www.terraform.io/docs/providers/oci/index.html
-[terraform_options]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/master/docs/terraformoptions.adoc
+[terraform_options]: https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/docs/terraformoptions.adoc
 [terraform_oci_examples]: https://github.com/terraform-providers/terraform-provider-oci/tree/master/examples
 [terraform_oci_oke]: https://github.com/oracle-terraform-modules/terraform-oci-oke
 

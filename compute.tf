@@ -4,7 +4,7 @@
 resource "oci_core_instance" "bastion" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_id
-  freeform_tags       = var.bastion_tags
+  freeform_tags       = var.freeform_tags
 
   agent_config {
 
@@ -22,7 +22,7 @@ resource "oci_core_instance" "bastion" {
     assign_public_ip = var.bastion_type == "public" ? true : false
     display_name     = var.label_prefix == "none" ? "bastion-vnic" : "${var.label_prefix}-bastion-vnic"
     hostname_label   = "bastion"
-    subnet_id        = oci_core_subnet.bastion[0].id
+    subnet_id        = oci_core_subnet.bastion.id
   }
 
   display_name = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
@@ -39,7 +39,7 @@ resource "oci_core_instance" "bastion" {
 
   metadata = {
     ssh_authorized_keys = var.ssh_public_key != "" ? var.ssh_public_key : file(var.ssh_public_key_path)
-    user_data           = data.cloudinit_config.bastion[0].rendered
+    user_data           = data.cloudinit_config.bastion.rendered
   }
 
   shape = lookup(var.bastion_shape, "shape", "VM.Standard.E2.2")
@@ -64,5 +64,4 @@ resource "oci_core_instance" "bastion" {
     create = "60m"
   }
 
-  count = var.create_bastion_host == true ? 1 : 0
 }

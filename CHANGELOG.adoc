@@ -19,20 +19,20 @@ The format is based on {uri-changelog}[Keep a Changelog].
 * Set minimum Terraform version to 1.0.0
 * OCI home region provider now expected as parameter to providers
 * Renamed notification variables (#18)
-** create_bastion -> create_bastion_host
 ** enable_notification -> enable_bastion_notification
 ** notification_endpoint -> bastion_notification_endpoint
 ** notification_protocol -> bastion_notification_protocol
 ** notification_topic -> bastion_notification_topic
 ** Renamed variable bastion_upgrade --> upgrade_bastion
 ** Renamed variable timezone --> bastion_timezone
-** Renamed variable tags --> bastion_tags
+** Renamed variable tags --> freeform_tags
 * Changed bastion access from a single CIDR to a list of CIDR blocks (#29)
 * AD lookup mechanism reimplemented to remove dependency on deprecated template_file data source (#27)
 * Replaced all deprecated template_file data source with templatefile function (#27)
 
 == Deletion
 * Removed provider identity parameters except for tenancy_id
+* Removed create_bastion_host parameter (#36)
 
 = v2.0.0 (December 8, 2020)
 * Added support for flex shapes (#11)

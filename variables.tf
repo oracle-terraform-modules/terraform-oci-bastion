@@ -56,13 +56,6 @@ variable "vcn_id" {
 }
 
 # bastion host parameters
-
-variable "create_bastion_host" {
-  description = "Whether to create the bastion host."
-  default     = false
-  type        = bool
-}
-
 variable "bastion_image_id" {
   description = "Provide a custom image id for the bastion host or leave as Autonomous."
   default     = "Autonomous"
@@ -145,7 +138,7 @@ variable "bastion_notification_topic" {
 }
 
 # tagging
-variable "bastion_tags" {
+variable "freeform_tags" {
   description = "Freeform tags for bastion"
   default = {
     access      = "public"

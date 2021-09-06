@@ -33,8 +33,6 @@ newbits = 14
 
 vcn_id = ""
 
-create_bastion = true
-
 bastion_image_id = "Autonomous"
 
 bastion_os_version = "7.9"
@@ -68,7 +66,7 @@ bastion_notification_protocol = "EMAIL"
 
 bastion_notification_topic = "bastion"
 
-bastion_tags = {
+freeform_tags = {
     access      = "public"
     environment = "dev"
     role        = "bastion"
