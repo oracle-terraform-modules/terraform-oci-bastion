@@ -3,7 +3,7 @@
 
 data "oci_identity_availability_domain" "ad" {
   compartment_id = var.tenancy_id
-  ad_number = var.availability_domain
+  ad_number      = var.availability_domain
 }
 
 data "oci_core_vcn" "vcn" {
@@ -35,7 +35,6 @@ data "cloudinit_config" "bastion" {
       }
     )
   }
-  count = var.create_bastion_host == true ? 1 : 0
 }
 
 # Gets a list of VNIC attachments on the bastion instance
@@ -43,28 +42,22 @@ data "oci_core_vnic_attachments" "bastion_vnics_attachments" {
   availability_domain = data.oci_identity_availability_domain.ad.name
   compartment_id      = var.compartment_id
   depends_on          = [oci_core_instance.bastion]
-  instance_id         = oci_core_instance.bastion[0].id
-
-  count = var.create_bastion_host == true ? 1 : 0
+  instance_id         = oci_core_instance.bastion.id
 }
 
 # Gets the OCID of the first (default) VNIC on the bastion instance
 data "oci_core_vnic" "bastion_vnic" {
   depends_on = [oci_core_instance.bastion]
-  vnic_id    = lookup(data.oci_core_vnic_attachments.bastion_vnics_attachments[0].vnic_attachments[0], "vnic_id")
-
-  count = var.create_bastion_host == true ? 1 : 0
+  vnic_id    = lookup(data.oci_core_vnic_attachments.bastion_vnics_attachments.vnic_attachments[0], "vnic_id")
 }
 
 data "oci_core_instance" "bastion" {
   depends_on  = [oci_core_instance.bastion]
-  instance_id = oci_core_instance.bastion[0].id
-
-  count = var.create_bastion_host == true ? 1 : 0
+  instance_id = oci_core_instance.bastion.id
 }
 
 data "oci_ons_notification_topic" "bastion_notification" {
   topic_id = oci_ons_notification_topic.bastion_notification[0].topic_id
 
-  count = (var.create_bastion_host == true && var.enable_bastion_notification == true) ? 1 : 0
+  count = var.enable_bastion_notification == true ? 1 : 0
 }

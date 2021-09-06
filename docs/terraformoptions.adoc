@@ -108,11 +108,6 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`create_bastion_host`
-|whether to create the bastion host
-| true/false
-|true
-
 |`bastion_image_id`
 |Provide a custom image id for the bastion host or leave as Autonomous.
 |imageid/Autonomous
@@ -210,13 +205,13 @@ Ensure you review the {uri-terraform-dependencies}[dependencies].
 |Values
 |Default
 
-|`bastion_tags`
+|`freeform_tags`
 |Freeform tags for bastion.
 |
 |
 [source]
 ----
-bastion_tags = {
+freeform_tags = {
     access      = "public"
     environment = "dev"
     role        = "bastion"

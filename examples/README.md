@@ -89,13 +89,11 @@ module "bastion" {
 
   vcn_id = var.vcn_id
 
-  create_bastion_host = true
-
   ssh_public_key_path = "~/.ssh/id_rsa.pub"
 
   upgrade_bastion = false
 
-  bastion_tags = {
+  freeform_tags = {
     access      = "public"
     environment = "dev"
     role        = "bastion"

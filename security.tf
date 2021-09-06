@@ -4,7 +4,7 @@
 resource "oci_core_security_list" "bastion" {
   compartment_id = var.compartment_id
   display_name   = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
-  freeform_tags  = var.bastion_tags
+  freeform_tags  = var.freeform_tags
 
   egress_security_rules {
     protocol    = local.all_protocols
@@ -27,6 +27,4 @@ resource "oci_core_security_list" "bastion" {
     }
   }
   vcn_id = var.vcn_id
-
-  count = var.create_bastion_host == true ? 1 : 0
 }
