@@ -16,6 +16,26 @@ resource "oci_core_instance" "bastion" {
       desired_state = "DISABLED"
       name          = "Bastion"
     }
+    plugins_config {
+      desired_state = "ENABLED"
+      name          = "Custom Logs Monitoring"
+    }    
+    plugins_config {
+      desired_state = "ENABLED"
+      name          = "Management Agent"
+    }
+    plugins_config {
+      desired_state = "ENABLED"
+      name          = "Oracle Autonomous Linux"
+    }        
+    plugins_config {
+      desired_state = "ENABLED"
+      name          = "OS Management Service Agent"
+    }
+    plugins_config {
+      desired_state = "ENABLED"
+      name          = "Vulnerability Scanning"
+    }            
   }
 
   create_vnic_details {
