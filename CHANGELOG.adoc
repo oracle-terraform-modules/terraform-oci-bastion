@@ -7,11 +7,10 @@ All notable changes to this project are documented in this file.
 
 The format is based on {uri-changelog}[Keep a Changelog].
 
-= Unreleased
+= v3.0.0 (September 21, 2021)
 
 == New features
 * New variable (`bastion_os_version`) to specify Autonomous Linux version (#15)
-* Added sort_order on images (#16)
 * New variable (`bastion_state`) to specify state of bastion host (#17)
 * Added support for private bastion host (#23)
 
@@ -29,10 +28,18 @@ The format is based on {uri-changelog}[Keep a Changelog].
 * Changed bastion access from a single CIDR to a list of CIDR blocks (#29)
 * AD lookup mechanism reimplemented to remove dependency on deprecated template_file data source (#27)
 * Replaced all deprecated template_file data source with templatefile function (#27)
+* Added sort_order on images (#16)
 
 == Deletion
 * Removed provider identity parameters except for tenancy_id
 * Removed create_bastion_host parameter (#36)
+
+= v2.1.0 (May 11, 2021)
+
+== New Features
+
+* Added ability to specify host state (RUNNING or STOPPED) (#17)
+* Added ability to specify host OS version (#15)
 
 = v2.0.0 (December 8, 2020)
 * Added support for flex shapes (#11)
