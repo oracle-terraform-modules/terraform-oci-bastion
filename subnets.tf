@@ -11,4 +11,8 @@ resource "oci_core_subnet" "bastion" {
   route_table_id             = var.ig_route_id
   security_list_ids          = [oci_core_security_list.bastion.id]
   vcn_id                     = var.vcn_id
+
+  lifecycle {
+    ignore_changes = [freeform_tags]
+  }
 }

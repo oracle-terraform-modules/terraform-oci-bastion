@@ -26,5 +26,10 @@ resource "oci_core_security_list" "bastion" {
       }
     }
   }
+
+  lifecycle {
+    ignore_changes = [freeform_tags]
+  }
+
   vcn_id = var.vcn_id
 }
