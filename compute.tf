@@ -34,7 +34,7 @@ resource "oci_core_instance" "bastion" {
 
   # prevent the bastion from destroying and recreating itself if the image ocid changes 
   lifecycle {
-    ignore_changes = [source_details[0].source_id]
+    ignore_changes = [freeform_tags, source_details[0].source_id]
   }
 
   metadata = {
