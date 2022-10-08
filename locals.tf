@@ -13,6 +13,9 @@ locals {
 
   bastion_image_id = var.bastion_image_id == "Autonomous" ? data.oci_core_images.autonomous_images.images.0.id : var.bastion_image_id
 
+  default_shape = "VM.Standard.E4.Flex"
+  shape = lookup(var.bastion_shape, "shape", local.default_shape)
+
   notification_template = base64gzip(
     templatefile("${path.module}/scripts/notification.template.sh",
       {
