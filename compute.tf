@@ -1,4 +1,4 @@
-# Copyright 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright 2019, 2022 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 resource "oci_core_instance" "bastion" {
@@ -21,7 +21,7 @@ resource "oci_core_instance" "bastion" {
   create_vnic_details {
     assign_public_ip = var.bastion_type == "public" ? true : false
     display_name     = var.label_prefix == "none" ? "bastion-vnic" : "${var.label_prefix}-bastion-vnic"
-    hostname_label   = "bastion"
+    hostname_label   = var.assign_dns ? "bastion" : null
     subnet_id        = oci_core_subnet.bastion.id
   }
 

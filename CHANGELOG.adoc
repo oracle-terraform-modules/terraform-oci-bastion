@@ -7,8 +7,11 @@ All notable changes to this project are documented in this file.
 
 The format is based on {uri-changelog}[Keep a Changelog].
 
-= v3.1.4 (unreleased)
-* feat: Support disabled DNS record assignment for bastion subnet by @devoncrouse
+= v3.1.5 (December 1, 2022)
+* feat: Support disabled DNS record assignment for bastion instance by @devoncrouse in #53
+
+= v3.1.4 (December 1, 2022)
+* feat: Support disabled DNS record assignment for bastion subnet by @devoncrouse in #52
 
 = v3.1.3 (October 7, 2022)
 * fix: Ignore lifecycle changes, and use consistent fallback shape by @devoncrouse in #51
