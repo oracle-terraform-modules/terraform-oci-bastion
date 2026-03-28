@@ -1,8 +1,7 @@
-[rootvariables]:https://github.com/oracle/terraform-oci-bastion/blob/master/examples/db/variables.tf
-[rootlocals]:https://github.com/oracle/terraform-oci-bastion/blob/master/examples/db/locals.tf
-[terraformoptions]:https://github.com/oracle/terraform-oci-bastion/blob/master/docs/terraformoptions.adoc
+[rootvariables]:https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/examples/variables.tf
+[terraformoptions]:https://github.com/oracle-terraform-modules/terraform-oci-bastion/blob/main/docs/terraformoptions.md
 
-Example reusing terraform-oci-bastion and extending to create other network resources.
+Example showing how to reuse `terraform-oci-bastion` from a separate root module.
 
 __Note: This is an example to demonstrate reusing this Terraform module to create additional network resources. Ensure you evaluate your own security needs when creating security lists, network security groups etc.__
 
@@ -16,7 +15,6 @@ additional network resources in the VCN. The steps required are the following:
 2. Create the following files in root directory of your project:
 
 - `variables.tf`
-- `locals.tf`
 - `provider.tf`
 - `main.tf`
 - `terraform.tfvars`
@@ -34,18 +32,11 @@ provider "oci" {
 }
 ```
 
-4. Create the modules directory
-
-```
-mkdir modules
-cd modules
-```
-
 ## Define project variables
 
-### Variables to reuse the vcn module
+### Variables to reuse the bastion module
 
-1. Define the vcn parameters in the root `variables.tf`.
+1. Define the bastion parameters in the root `variables.tf`.
 See [`variables.tf`][rootvariables] in this directory.
 
 2. Add additional variables if you need to.
@@ -63,23 +54,13 @@ provider "oci" {
   user_ocid        = var.user_id
 }
 
-provider "oci" {
-  fingerprint      = var.api_fingerprint
-  private_key_path = var.api_private_key_path
-  region           = var.region
-  tenancy_ocid     = var.tenancy_id
-  user_ocid        = var.user_id
-  alias            = "home"
-}
-
 module "bastion" {
-  source = "../"
-  tenancy_id     = var.tenancy_id
+  source         = "../"
   compartment_id = var.compartment_id
 
-  label_prefix   = var.label_prefix
+  label_prefix = var.label_prefix
 
-  availability_domain = var.availability_domain
+  bastion_availability_domain = var.bastion_availability_domain
 
   ig_route_id = var.ig_route_id
 
@@ -89,7 +70,12 @@ module "bastion" {
 
   vcn_id = var.vcn_id
 
-  ssh_public_key_path = "~/.ssh/id_rsa.pub"
+  bastion_image_type = "platform"
+  bastion_image_os   = "Oracle Autonomous Linux"
+
+  bastion_await_cloudinit = true
+  ssh_private_key         = file(pathexpand("~/.ssh/id_rsa"))
+  ssh_public_key_path     = "~/.ssh/id_rsa.pub"
 
   upgrade_bastion = false
 
@@ -98,12 +84,14 @@ module "bastion" {
     environment = "dev"
     role        = "bastion"
   }
-
-  providers = {
-      oci.home = oci.home
-  }
 }
 
 ```
 
-2. Enter appropriate values for `terraform.tfvars`. Review [Terraform Options][terraformoptions] for reference
+2. Enter appropriate values for `terraform.tfvars`. Review [Terraform Options][terraformoptions] for reference.
+
+3. Apply the configuration and retrieve the effective bastion address with:
+
+```bash
+terraform output bastion_ip
+```

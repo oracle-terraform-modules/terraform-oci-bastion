@@ -1,0 +1,112 @@
+# CHANGELOG
+
+All notable changes to this project are documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/).
+
+# v3.1.5 (December 1, 2022)
+
+- feat: Support disabled DNS record assignment for bastion instance by @devoncrouse in #53
+
+# v3.1.4 (December 1, 2022)
+
+- feat: Support disabled DNS record assignment for bastion subnet by @devoncrouse in #52
+
+# v3.1.3 (October 7, 2022)
+
+- fix: Ignore lifecycle changes, and use consistent fallback shape by @devoncrouse in #51
+
+# v3.1.2 (October 5, 2022)
+
+- fix: Compartment AD listing, ignore lifecycle changes by @devoncrouse in #50
+
+# v3.1.1 (April 26, 2022)
+
+- fix: made autonomous cloud init template optional. by @hyder in #49
+
+# v3.1.0 (March 27, 2022)
+
+- fix: Provider changed from hashicorp/oci to oracle/oci by @karthicgit in #47
+
+# v3.0.0 (September 21, 2021)
+
+## New features
+
+- New variable (`bastion_os_version`) to specify Autonomous Linux version (#15)
+- New variable (`bastion_state`) to specify state of bastion host (#17)
+- Added support for private bastion host (#23)
+
+## Changes
+
+- Set minimum Terraform version to 1.0.0
+- OCI home region provider now expected as parameter to providers
+- Renamed notification variables (#18)
+- `enable_notification` -> `enable_bastion_notification`
+- `notification_endpoint` -> `bastion_notification_endpoint`
+- `notification_protocol` -> `bastion_notification_protocol`
+- `notification_topic` -> `bastion_notification_topic`
+- Renamed variable `bastion_upgrade` --> `upgrade_bastion`
+- Renamed variable `timezone` --> `bastion_timezone`
+- Renamed variable `tags` --> `freeform_tags`
+- Changed bastion access from a single CIDR to a list of CIDR blocks (#29)
+- AD lookup mechanism reimplemented to remove dependency on deprecated template_file data source (#27)
+- Replaced all deprecated template_file data source with templatefile function (#27)
+- Added sort_order on images (#16)
+
+## Deletion
+
+- Removed provider identity parameters except for tenancy_id
+- Removed create_bastion_host parameter (#36)
+
+# v2.1.0 (May 11, 2021)
+
+## New Features
+
+- Added ability to specify host state (RUNNING or STOPPED) (#17)
+- Added ability to specify host OS version (#15)
+
+# v2.0.0 (December 8, 2020)
+
+- Added support for flex shapes (#11)
+- Set default launch options to PARAVIRTUALIZED
+- Set minimum version to Terraform 0.13 (#12)
+
+# v1.0.7 (August 31,2020)
+
+- Reversed 1.04 and and 1.0.5 (#9)
+
+# v1.0.6 (August 31,2020)
+
+- Use root_compartment_id instead of tenancy_id for dynamic group
+
+## v1.0.5 (August 5,2020)
+
+- tenancy id is needed for list of ADs (#7)
+
+## v1.0.4 (August 5,2020)
+
+- Home provider configuration changes (#5)
+
+## v1.0.3 (July 15,2020)
+
+- Made label_prefix optional (#3)
+
+## v1.0.2 (June 10,2020)
+
+### Changes
+
+- Removed image operating system version from datasource (#1)
+
+## v1.0.1 (May 27,2020)
+
+### Changes
+
+- updated tags
+
+## v1.0.0 (May 21,2020)
+
+### Changes
+
+- First release after split from terraform-oci-base
+- changed most variables to simple types
+- updated docs

@@ -1,4 +1,4 @@
-# Copyright 2019, 2022 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright 2019, 2026 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 resource "oci_core_subnet" "bastion" {
@@ -7,8 +7,8 @@ resource "oci_core_subnet" "bastion" {
   display_name               = var.label_prefix == "none" ? "bastion" : "${var.label_prefix}-bastion"
   dns_label                  = var.assign_dns ? "bastion" : null
   freeform_tags              = var.freeform_tags
-  prohibit_public_ip_on_vnic = var.bastion_type == "public" ? false : true
-  route_table_id             = var.ig_route_id
+  prohibit_public_ip_on_vnic = var.bastion_is_public ? false : true
+  route_table_id             = coalesce(var.bastion_route_table_id, var.ig_route_id)
   security_list_ids          = [oci_core_security_list.bastion.id]
   vcn_id                     = var.vcn_id
 

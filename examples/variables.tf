@@ -1,4 +1,4 @@
-# Copyright (c) 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright (c) 2019, 2026 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
 
 # provider identity parameters
@@ -46,13 +46,11 @@ variable "label_prefix" {
 # bastion module parameters
 
 variable "ig_route_id" {
-  type = string
+  description = "Route table ID for the internet gateway used by the public bastion subnet."
+  type        = string
 }
 
 variable "vcn_id" {
-  type = string
-}
-
-variable "ssh_public_key" {
-  type = string
+  description = "The VCN OCID where the bastion subnet and instance will be created."
+  type        = string
 }
