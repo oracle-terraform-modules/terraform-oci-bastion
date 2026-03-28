@@ -49,7 +49,7 @@ variable "ig_route_id" {
   default     = null
   type        = string
   validation {
-    condition     = !var.bastion_is_public || length(trimspace(coalesce(var.ig_route_id, ""))) > 0
+    condition     = !var.bastion_is_public || length(trimspace(coalesce(var.ig_route_id, " "))) > 0
     error_message = "ig_route_id must be provided when bastion_is_public is true."
   }
 }
@@ -59,7 +59,7 @@ variable "bastion_route_table_id" {
   default     = null
   type        = string
   validation {
-    condition     = var.bastion_is_public ? length(trimspace(coalesce(var.bastion_route_table_id, ""))) == 0 : length(trimspace(coalesce(var.bastion_route_table_id, ""))) > 0
+    condition     = var.bastion_is_public ? length(trimspace(coalesce(var.bastion_route_table_id, " "))) == 0 : length(trimspace(coalesce(var.bastion_route_table_id, " "))) > 0
     error_message = "bastion_route_table_id must be unset for public bastions and provided for private bastions."
   }
 }
@@ -174,7 +174,7 @@ variable "ssh_private_key" {
   type        = string
   sensitive   = true
   validation {
-    condition     = !(var.bastion_await_cloudinit && var.bastion_is_public) || length(trimspace(coalesce(var.ssh_private_key, ""))) > 0
+    condition     = !(var.bastion_await_cloudinit && var.bastion_is_public) || length(trimspace(coalesce(var.ssh_private_key, " "))) > 0
     error_message = "ssh_private_key must be provided when bastion_await_cloudinit is true for a public bastion."
   }
 }
