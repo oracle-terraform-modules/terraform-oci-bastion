@@ -4,3 +4,7 @@
 output "bastion_ip" {
   value = var.bastion_is_public ? data.oci_core_vnic.bastion_vnic.public_ip_address : data.oci_core_vnic.bastion_vnic.private_ip_address
 }
+
+output "bastion_nsg_id" {
+  value = oci_core_network_security_group.bastion.id
+}

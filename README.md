@@ -37,7 +37,7 @@ It creates the following resources:
 
 For public bastions, provide `ig_route_id`. For private bastions, leave `ig_route_id` unset and provide `bastion_route_table_id` for the subnet route table. Custom images are supported only with `bastion_await_cloudinit = false`.
 
-The primary output is `bastion_ip`, which returns the public IP for public bastions and the private IP for private bastions.
+The module outputs `bastion_ip`, which returns the public IP for public bastions and the private IP for private bastions, and `bastion_nsg_id`, which returns the bastion NSG OCID.
 
 This module is primarily meant to be reusable to provide an entry point into your infrastructure on [OCI][oci].
 You can further use it as part of higher level Terraform modules

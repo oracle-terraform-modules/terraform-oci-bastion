@@ -84,10 +84,11 @@ terraform plan
 terraform apply
 ```
 
-7. Retrieve the bastion address:
+7. Retrieve the bastion address and NSG ID:
 
 ```bash
 terraform output bastion_ip
+terraform output bastion_nsg_id
 ```
 
 ### Related documentation
