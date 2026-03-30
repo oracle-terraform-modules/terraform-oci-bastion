@@ -5,7 +5,7 @@ terraform {
   required_providers {
     cloudinit = {
       source  = "hashicorp/cloudinit"
-      version = ">= 2.2.0"
+      version = ">= 2.3.0"
     }
 
     null = {
@@ -15,7 +15,7 @@ terraform {
 
     oci = {
       source  = "oracle/oci"
-      version = ">= 4.67.3"
+      version = ">= 7.30.0"
     }
   }
   required_version = ">= 1.0.0"
