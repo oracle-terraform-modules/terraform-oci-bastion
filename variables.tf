@@ -1,12 +1,5 @@
-# Copyright (c) 2019, 2022 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright (c) 2019, 2026 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl
-
-# provider parameters
-variable "tenancy_id" {
-  description = "tenancy id where to create the sources"
-  type        = string
-  default     = ""
-}
 
 # general oci parameters
 variable "compartment_id" {
@@ -27,21 +20,48 @@ variable "assign_dns" {
 }
 
 # network parameters
-variable "availability_domain" {
+variable "bastion_availability_domain" {
   description = "the AD to place the bastion host"
   default     = 1
   type        = number
 }
 
-variable "bastion_access" {
+variable "bastion_allowed_cidrs" {
   description = "A list of CIDR blocks to which ssh access to the bastion must be restricted to. *anywhere* is equivalent to 0.0.0.0/0 and allows ssh access from anywhere."
   default     = ["anywhere"]
-  type        = list
+  type        = list(string)
+  validation {
+    condition = alltrue([
+      for cidr in var.bastion_allowed_cidrs : lower(cidr) == "anywhere" || can(cidrnetmask(cidr))
+    ])
+    error_message = "Each bastion_allowed_cidrs entry must be a valid IPv4 CIDR or the literal 'anywhere'."
+  }
+}
+
+variable "bastion_nsg_ids" {
+  description = "An additional list of network security group (NSG) IDs for bastion security."
+  default     = []
+  type        = list(string)
 }
 
 variable "ig_route_id" {
   description = "the route id to the internet gateway"
+  default     = null
   type        = string
+  validation {
+    condition     = !var.bastion_is_public || length(trimspace(coalesce(var.ig_route_id, " "))) > 0
+    error_message = "ig_route_id must be provided when bastion_is_public is true."
+  }
+}
+
+variable "bastion_route_table_id" {
+  description = "Route table ID to associate with the bastion subnet. Required when bastion_is_public is false."
+  default     = null
+  type        = string
+  validation {
+    condition     = var.bastion_is_public ? length(trimspace(coalesce(var.bastion_route_table_id, " "))) == 0 : length(trimspace(coalesce(var.bastion_route_table_id, " "))) > 0
+    error_message = "bastion_route_table_id must be unset for public bastions and provided for private bastions."
+  }
 }
 
 variable "netnum" {
@@ -62,15 +82,49 @@ variable "vcn_id" {
 }
 
 # bastion host parameters
-variable "bastion_image_id" {
-  description = "Provide a custom image id for the bastion host or leave as Autonomous."
-  default     = "Autonomous"
+variable "bastion_user" {
+  default     = "opc"
+  description = "User for SSH access through bastion host."
   type        = string
 }
 
-variable "bastion_os_version" {
-  description = "In case Autonomous Linux is used, allow specification of Autonomous version"
-  default     = "7.9"
+variable "bastion_image_id" {
+  description = "Custom image OCID for the bastion host when bastion_image_type is set to custom."
+  default     = null
+  type        = string
+  validation {
+    condition     = var.bastion_image_type != "custom" || can(regex("^ocid1\\.image\\.", coalesce(var.bastion_image_id, "")))
+    error_message = "bastion_image_id must be a valid image OCID when bastion_image_type is 'custom'."
+  }
+}
+
+variable "bastion_image_type" {
+  default     = "platform"
+  description = "Whether to use a platform or custom image for the created bastion instance. When custom is set, the bastion_image_id must be specified."
+  type        = string
+  validation {
+    condition     = contains(["custom", "platform"], var.bastion_image_type)
+    error_message = "Accepted values are custom or platform"
+  }
+  validation {
+    condition     = var.bastion_image_type != "custom" || !var.bastion_await_cloudinit
+    error_message = "bastion_await_cloudinit must be false when bastion_image_type is 'custom'."
+  }
+}
+
+variable "bastion_image_os" {
+  default     = "Oracle Autonomous Linux"
+  description = "Bastion image operating system name when bastion_image_type = 'platform'."
+  type        = string
+  validation {
+    condition     = var.bastion_image_type != "platform" || var.bastion_image_os == "Oracle Autonomous Linux"
+    error_message = "Platform image mode currently supports only Oracle Autonomous Linux."
+  }
+}
+
+variable "bastion_image_os_version" {
+  description = "Operating system version when bastion_image_type is set to platform."
+  default     = "9"
   type        = string
 }
 
@@ -86,6 +140,10 @@ variable "bastion_state" {
   description = "The target state for the instance. Could be set to RUNNING or STOPPED. (Updatable)"
   default     = "RUNNING"
   type        = string
+  validation {
+    condition     = contains(["RUNNING", "STOPPED"], var.bastion_state)
+    error_message = "bastion_state must be RUNNING or STOPPED."
+  }
 }
 
 variable "bastion_timezone" {
@@ -94,16 +152,31 @@ variable "bastion_timezone" {
   type        = string
 }
 
-variable "bastion_type" {
+variable "bastion_is_public" {
   description = "Whether to make the bastion host public or private."
-  default     = "public"
-  type        = string
+  default     = true
+  type        = bool
 }
 
 variable "ssh_public_key" {
   description = "the content of the ssh public key used to access the bastion. set this or the ssh_public_key_path"
   default     = ""
   type        = string
+  validation {
+    condition     = length(trimspace(var.ssh_public_key)) > 0 || length(trimspace(var.ssh_public_key_path)) > 0
+    error_message = "Either ssh_public_key or ssh_public_key_path must be provided."
+  }
+}
+
+variable "ssh_private_key" {
+  description = "Private key content used only when waiting for cloud-init over SSH on a public bastion."
+  default     = null
+  type        = string
+  sensitive   = true
+  validation {
+    condition     = !(var.bastion_await_cloudinit && var.bastion_is_public) || length(trimspace(coalesce(var.ssh_private_key, " "))) > 0
+    error_message = "ssh_private_key must be provided when bastion_await_cloudinit is true for a public bastion."
+  }
 }
 
 variable "ssh_public_key_path" {
@@ -118,29 +191,10 @@ variable "upgrade_bastion" {
   type        = bool
 }
 
-# bastion notification
-variable "enable_bastion_notification" {
-  description = "Whether to enable ONS notification for the bastion host."
-  default     = false
+variable "bastion_await_cloudinit" {
+  default     = true
+  description = "Whether to block until successful SSH connection to the bastion and completion of cloud-init. This wait path is only attempted for public bastions."
   type        = bool
-}
-
-variable "bastion_notification_endpoint" {
-  description = "The subscription notification endpoint. Email address to be notified."
-  default     = null
-  type        = string
-}
-
-variable "bastion_notification_protocol" {
-  description = "The notification protocol used."
-  default     = "EMAIL"
-  type        = string
-}
-
-variable "bastion_notification_topic" {
-  description = "The name of the notification topic"
-  default     = "bastion"
-  type        = string
 }
 
 # tagging
@@ -151,5 +205,5 @@ variable "freeform_tags" {
     environment = "dev"
     role        = "bastion"
   }
-  type = map(any)
+  type = map(string)
 }

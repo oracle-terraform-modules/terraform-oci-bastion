@@ -1,4 +1,4 @@
-# Copyright 2019, 2021 Oracle Corporation and/or affiliates.  All rights reserved.
+# Copyright 2019, 2026 Oracle Corporation and/or affiliates.  All rights reserved.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl/
 
 # Protocols are specified as protocol numbers.
@@ -9,21 +9,12 @@ locals {
 
   anywhere = "0.0.0.0/0"
 
-  autonomous_template = "${path.module}/cloudinit/autonomous.template.yaml"
-
-  bastion_image_id = var.bastion_image_id == "Autonomous" ? data.oci_core_images.autonomous_images.images.0.id : var.bastion_image_id
+  bastion_image_id = var.bastion_image_type == "custom" ? coalesce(var.bastion_image_id, "none") : try(data.oci_core_images.autonomous_images[0].images[0].id, "none")
 
   default_shape = "VM.Standard.E4.Flex"
-  shape = lookup(var.bastion_shape, "shape", local.default_shape)
+  shape         = lookup(var.bastion_shape, "shape", local.default_shape)
 
-  notification_template = base64gzip(
-    templatefile("${path.module}/scripts/notification.template.sh",
-      {
-        enable_bastion_notification = var.enable_bastion_notification,
-        topic_id                    = var.enable_bastion_notification == true ? oci_ons_notification_topic.bastion_notification[0].topic_id : "null"
-      }
-    )
-  )
+  bastion_nsg_ids = distinct(concat([oci_core_network_security_group.bastion.id], var.bastion_nsg_ids))
 
   ssh_port = 22
 
